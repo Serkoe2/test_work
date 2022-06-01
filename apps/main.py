@@ -14,7 +14,7 @@ def register_blueprints(app: Flask) -> None:
     """
     Регистрирует все приложения
     """
-    for module_name in ('user', 'social', 'command'):
+    for module_name in ('rates',):
         module = import_module('apps.Api.{}'.format(module_name))
         app.register_blueprint(module.blueprint)
 
