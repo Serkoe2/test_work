@@ -5,7 +5,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    if not os.getenv("ENVIROMENT"):
-        load_dotenv('.env')
+    Environment  = 'development'
     DEBUG = True
+    TESTING = True
     SECRET_KEY = 'secret-key'
+    ENV = 'development'
