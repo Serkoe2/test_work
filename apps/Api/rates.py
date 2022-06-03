@@ -16,7 +16,6 @@ def getRatePares(key):
     global LAST_UPDATE
     global RatePares
     if LAST_UPDATE is None or LAST_UPDATE < date.today():
-        print("WORK",LAST_UPDATE )
         Load = requests.get("https://www.cbr-xml-daily.ru/daily_json.js").json()
         RatePares = {
             "usd": Load["Valute"]["USD"]["Value"],
