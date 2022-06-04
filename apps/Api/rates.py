@@ -3,7 +3,7 @@ from datetime import datetime, date
 from apps.Database import crud
 import requests
 
-blueprint = Blueprint('rates', __name__, url_prefix='/api/getRates')
+blueprint = Blueprint('rates', __name__, url_prefix='/api')
 
 # Cache
 LAST_UPDATE = None
@@ -27,7 +27,7 @@ def getRatePares(key):
     if key in RatePares:
         return RatePares[key]
 
-@blueprint.route('/', methods=['POST'])
+@blueprint.route('/getRates/', methods=['POST'])
 def getRates():
     if 'user' in session:
         key = session.get('user')
@@ -37,7 +37,16 @@ def getRates():
     if 'rate' not in query or\
        'value' not in query :
        return jsonify({"status": False})
+    # проверка Rate и Value
     k = getRatePares(query['rate'])
     result = round(query['value'] * k, 2)
     crud.add_record(key, str(result))
     return jsonify({"status": True, "result": result})
+
+@blueprint.route('/clearStory/', methods=['POST'])
+def clearStory():
+    if 'user' not in session:
+        return jsonify({"status": False, "result": "user not found"})
+    key = session.get('user')
+    crud.clear_story(key)
+    return jsonify({"status": True, "result": "OK"})

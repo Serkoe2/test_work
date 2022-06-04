@@ -13,3 +13,8 @@ def get_records(user):
     query = query.order_by(models.Story.created_on)
     r = query.all()
     return r
+
+def clear_story(user):
+    query = db.session.query(models.Story).filter(models.Story.s_key == user)\
+        .delete(synchronize_session="fetch")
+    db.session.commit()
