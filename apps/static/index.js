@@ -1,5 +1,5 @@
 async function getRates(data = {}){
-    const response = await fetch("http://127.0.0.1:5000/api/getRates/", {
+    const response = await fetch("/api/getRates/", {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -11,7 +11,7 @@ async function getRates(data = {}){
 }
 
 async function clearStory(){
-    const response = await fetch("http://127.0.0.1:5000/api/clearStory/", {
+    const response = await fetch("/api/clearStory/", {
         method: 'POST',
     });
 
