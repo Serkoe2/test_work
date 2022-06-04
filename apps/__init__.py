@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from importlib import import_module
 from flask_sqlalchemy import SQLAlchemy
-
+from config import Config
 
 db = SQLAlchemy()
 
@@ -36,12 +36,12 @@ def register_blueprints(app: Flask) -> None:
         app.register_blueprint(module.blueprint)
 
 
-def create_app(config) -> Flask:
+def create_app() -> Flask:
     """
     Создает и возвращает Flask приложение
     """
     app = Flask(__name__)
-    app.config.from_object(config)
+    app.config.from_object(Config)
     print(app.config)
     register_blueprints(app)
     register_extensions(app)
