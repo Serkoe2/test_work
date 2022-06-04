@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, session
 from datetime import datetime, date
-from apps.Database import models
+from apps.Database import crud
 import requests
 
 blueprint = Blueprint('rates', __name__, url_prefix='/api/getRates')
@@ -29,10 +29,15 @@ def getRatePares(key):
 
 @blueprint.route('/', methods=['POST'])
 def getRates():
+    if 'user' in session:
+        key = session.get('user')
+    else:
+        session['user'] = os.urandom(20).hex()
     query = request.get_json()
     if 'rate' not in query or\
        'value' not in query :
        return jsonify({"status": False})
     k = getRatePares(query['rate'])
     result = round(query['value'] * k, 2)
+    crud.add_record(key, str(result))
     return jsonify({"status": True, "result": result})
