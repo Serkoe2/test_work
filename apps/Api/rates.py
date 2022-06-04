@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from datetime import datetime, date
+from apps.Database import models
 import requests
 
 blueprint = Blueprint('rates', __name__, url_prefix='/api/getRates')
