@@ -10,7 +10,7 @@ class Config(object):
     Environment  = 'development'
     DEBUG = True
     TESTING = True
-    SECRET_KEY = 'secret-key'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     ENV = 'development'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DB_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
