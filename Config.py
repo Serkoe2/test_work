@@ -10,3 +10,4 @@ class Config(object):
     TESTING = True
     SECRET_KEY = 'secret-key'
     ENV = 'development'
+    STATIC_FOLDER = 'apps/static/'

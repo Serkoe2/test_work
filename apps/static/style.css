@@ -1,0 +1,34 @@
+.container{ max-width: 960px; }
+.display{
+    background-color: aliceblue;
+    width: 200px;
+    height: 100px;
+    padding: .3rem .4rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    font-size: 0.8rem; 
+}
+.input-group{ width: 200px; }
+.wrap{
+    display: flex;
+    justify-content: center;
+}
+.btn{ 
+    border: none;
+}
+.btn:focus {
+    transition-delay: 5s;
+    outline: none;
+    background-color: green;
+}
+.btn:active {
+    transition-duration: 5s;
+    background-color: rgb(254, 254, 254);
+    
+}
+.eur { background-color: #FFC340; }
+.usd { background-color: hwb(207 40% 18%)}
+.gbp { background-color: #a69e9e;}
+.clear {background-color: #b32b2b;}

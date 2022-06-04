@@ -2,7 +2,6 @@ from flask import Flask
 from flask_cors import CORS
 from importlib import import_module
 
-
 def register_extensions(app: Flask) -> None:
     """
     Регистрирует все расширения
@@ -16,6 +15,10 @@ def register_blueprints(app: Flask) -> None:
     """
     for module_name in ('rates',):
         module = import_module('apps.Api.{}'.format(module_name))
+        app.register_blueprint(module.blueprint)
+    
+    for module_name in ('route',):
+        module = import_module('apps.Pages.{}'.format(module_name))
         app.register_blueprint(module.blueprint)
 
 
