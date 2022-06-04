@@ -36,7 +36,7 @@ def register_blueprints(app: Flask) -> None:
         app.register_blueprint(module.blueprint)
 
 
-def create_app(config) -> Flask:
+def create_app(Config) -> Flask:
     """
     Создает и возвращает Flask приложение
     """
