@@ -31,7 +31,8 @@ def getRates():
     if 'user' in session:
         key = session.get('user')
     else:
-        session['user'] = os.urandom(20).hex()
+        key = os.urandom(20).hex()
+        session['user'] = key
     query = request.get_json()
     if 'rate' not in query or\
        'value' not in query :
