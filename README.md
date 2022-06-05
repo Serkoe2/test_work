@@ -10,6 +10,7 @@
   <li> Приложение хранит данные в БД, ключом доступа к данным является параметр из сессии </li>
   <li> Кнопка Clear также очищает данные из таблицы </li>
   <li> Курс валюты подтягивается из api ЦБ https://www.cbr-xml-daily.ru/daily_json.js </li>
+  <li> Курс валюты кешируется 1 раз в день в Redis </li>
 </ul>
 
 
@@ -26,4 +27,5 @@
   <li> Bootstrap </li>
   <li> Postgres </li>
   <li> Heroku </li>
+  <li> Redis </li>
 </ul>
