@@ -1,10 +1,12 @@
-from flask import Flask
+from flask import Flask, session
 from flask_cors import CORS
 from importlib import import_module
 from flask_sqlalchemy import SQLAlchemy
+from flask_redis import FlaskRedis
 
 
 db = SQLAlchemy()
+redis_client = FlaskRedis(decode_responses=True)
 
 def register_extensions(app: Flask) -> None:
     """
@@ -12,6 +14,7 @@ def register_extensions(app: Flask) -> None:
     """
     CORS().init_app(app, resources={r"/*": {"origins": "*"}})
     db.init_app(app)
+    redis_client.init_app(app)
 
 def configure_database(app):
 

@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from datetime import timedelta
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -19,3 +20,4 @@ class Config(object):
         SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL_LOCAL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'migrations')
+    REDIS_URL = os.environ.get('REDIS_URL')

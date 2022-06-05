@@ -1,31 +1,29 @@
 from flask import Blueprint, jsonify, request, session
 from datetime import datetime, date
-from apps.Database import crud
 import requests
+
+from apps.Database import crud
+from apps import redis_client
 
 blueprint = Blueprint('rates', __name__, url_prefix='/api')
 
-# Cache
-LAST_UPDATE = None
-RatePares = {
-    "usd": 0,
-    "gbp": 0,
-    "eur": 0
-}
 
 def getRatePares(key):
-    global LAST_UPDATE
-    global RatePares
-    if LAST_UPDATE is None or LAST_UPDATE < date.today():
+    LAST_UPDATE = redis_client.get('LAST_UPDATE')
+    d = date.today()
+    today = datetime(d.year, d.month, d.day) 
+    print(LAST_UPDATE)
+    if LAST_UPDATE is None or \
+        datetime.strptime(LAST_UPDATE, "%Y.%m.%d") < today:
         Load = requests.get("https://www.cbr-xml-daily.ru/daily_json.js").json()
-        RatePares = {
-            "usd": Load["Valute"]["USD"]["Value"],
-            "eur": Load["Valute"]["EUR"]["Value"],
-            "gbp": Load["Valute"]["GBP"]["Value"]
-            }
-        LAST_UPDATE = date.today()
-    if key in RatePares:
-        return RatePares[key]
+        LAST_UPDATE = today
+        redis_client.set("usd", Load["Valute"]["USD"]["Value"])
+        redis_client.set("eur", Load["Valute"]["EUR"]["Value"])
+        redis_client.set("LAST_UPDATE", date.today().strftime("%Y.%m.%d"))
+        redis_client.set("gbp", Load["Valute"]["GBP"]["Value"])
+        return Load["Valute"][key.upper()]["Value"]
+    return float(redis_client.get(key))
+
 
 @blueprint.route('/getRates/', methods=['POST'])
 def getRates():
