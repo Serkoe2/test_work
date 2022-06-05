@@ -34,8 +34,12 @@ def getRates():
     query = request.get_json()
     if 'rate' not in query or\
        'value' not in query :
-       return jsonify({"status": False})
+       return jsonify({"status": False, "result": "missing params"})
     # проверка Rate и Value
+    check_rate = query['rate'] not in ['usd', 'eur', 'gbp']
+    check_value = isinstance(query['value'], float) or isinstance(query['value'], int) 
+    if not check_rate or not check_value:
+        return jsonify({"status": False, "result": "incorrect value"})
     k = getRatePares(query['rate'])
     result = round(query['value'] * k, 2)
     crud.add_record(key, str(result))
