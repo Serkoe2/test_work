@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request, session
 from datetime import datetime, date
 import requests
+import os
 
 from apps.Database import crud
 from apps import redis_client
