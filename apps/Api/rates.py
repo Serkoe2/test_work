@@ -36,7 +36,7 @@ def getRates():
        'value' not in query :
        return jsonify({"status": False, "result": "missing params"})
     # проверка Rate и Value
-    check_rate = query['rate'] not in ['usd', 'eur', 'gbp']
+    check_rate = query['rate'] in ['usd', 'eur', 'gbp']
     check_value = isinstance(query['value'], float) or isinstance(query['value'], int) 
     if not check_rate or not check_value:
         return jsonify({"status": False, "result": "incorrect value"})
